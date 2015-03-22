@@ -55,9 +55,10 @@ public class Folder extends File{
 	        FileWriter writer = new FileWriter(wordCountFile);
 	        BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-	        System.out.print("Writing Median... ");
+	        System.out.println("Writing Counts... ");
 	        bufferedWriter.write(myTreeMap.toString());
 	        bufferedWriter.close();
+	        System.out.println("Finished writing Counts");
 	    } 
 	    catch(IOException ex) {
 	    	System.out.println("File writing failed. IO Exception thrown "+ex.getMessage());
@@ -70,9 +71,10 @@ public class Folder extends File{
 	        FileWriter writer = new FileWriter(runningMedianFile);
 	        BufferedWriter bufferedWriter = new BufferedWriter(writer);
 
-	        System.out.print("Writing Median... ");
+	        System.out.println("Writing Median... ");
 	        bufferedWriter.write(runningMedian.toString());
 	        bufferedWriter.close();
+	        System.out.println("Finished writing Median");
 	    } 
 	    catch(IOException ex) {
 	    	System.out.println("File writing failed. IO Exception thrown "+ex.getMessage());

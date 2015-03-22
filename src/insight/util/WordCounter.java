@@ -30,9 +30,9 @@ public final class WordCounter {
 		return dataFrame;
 	}
 	public static void setDataFrame(String[] tokens) {
-		for(String token : tokens){
-			setNumberOfWords(tokens.length);
-			setRunningMedian();
+		setNumberOfWords(tokens.length);
+		setRunningMedian();
+		for(String token : tokens){			
 			if(dataFrame.containsKey(token)){
 				dataFrame.put(token, dataFrame.get(token) + 1 );
 			}
@@ -51,11 +51,11 @@ public final class WordCounter {
 			
 			String line;
 			while((line = reader.readLine())!=null){
-				line = line.toLowerCase();
+				line = line.toLowerCase();				
 				line = line.replaceAll("[0-9]+","");
-				line = line.replaceAll("_","");
-				line = line.replaceAll("-","");
-				line = line.replaceAll("'","");
+				line = line.replaceAll("[_]+","");
+				line = line.replaceAll("[-]+","");
+				line = line.replaceAll("[']+","");
 				String[] tokens = line.split("[ ,;.\\t:?\"]");
 				setDataFrame(tokens);
 				
