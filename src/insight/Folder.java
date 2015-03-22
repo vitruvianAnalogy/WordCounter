@@ -1,6 +1,6 @@
 package insight;
 import java.io.File;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Folder extends File{
 	
@@ -28,7 +28,7 @@ public class Folder extends File{
 	
 	//Keeps track of files in a folder
 	public void enumerateList(){
-		if(!this.listOfFiles.isEmpty()){
+		if(this.listFiles()!=null){
 			for(File fileName : this.listFiles()){
 				listOfFiles.add(fileName.getName());
 			}
@@ -46,6 +46,10 @@ public class Folder extends File{
 		for(String fileName : listOfFiles){
 			System.out.println(fileName);			
 		}
+	}
+	
+	public void writeFilesInFolder(TreeMap<String,Integer> myTreeMap){
+		
 	}
 
 }
