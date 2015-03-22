@@ -2,20 +2,37 @@ package insight.util;
 
 import java.io.*;
 import java.util.*;
-
-
 import insight.Folder;
 
 public final class WordCounter {
 	
-	private static TreeMap<String,Integer> dataFrame = new TreeMap<String,Integer>();
-	
+	private static ArrayList<Integer> numberOfWords = new ArrayList<Integer>();
+	public static void setNumberOfWords(int element) {
+		numberOfWords.add(element);
+	}
+
+	private static ArrayList<Integer> runningMedian = new ArrayList<Integer>();
+	public static void setRunningMedian() {
+		int length = numberOfWords.size();
+		int median = 0;
+		if(length%2==0){
+			median = numberOfWords.get((length/2)-1) + numberOfWords.get(length/2);
+			median = median/2;
+		}
+		else{
+			median = numberOfWords.get(length/2); 
+		}
+		runningMedian.add(median);
+	}
+
+	private static TreeMap<String,Integer> dataFrame = new TreeMap<String,Integer>();	
 	public static TreeMap<String, Integer> getDataFrame() {
 		return dataFrame;
 	}
-
 	public static void setDataFrame(String[] tokens) {
 		for(String token : tokens){
+			setNumberOfWords(tokens.length);
+			setRunningMedian();
 			if(dataFrame.containsKey(token)){
 				dataFrame.put(token, dataFrame.get(token) + 1 );
 			}
@@ -35,16 +52,12 @@ public final class WordCounter {
 			String line;
 			while((line = reader.readLine())!=null){
 				line = line.toLowerCase();
-				line = line.replace("[0-9'-_]","");
-//				line = line.replaceAll("[0-9]","");
-//				line = line.replace("-", "");
-//				line = line.replace("_", "");
+				line = line.replaceAll("[0-9]+","");
+				line = line.replaceAll("_","");
+				line = line.replaceAll("-","");
+				line = line.replaceAll("'","");
 				String[] tokens = line.split("[ ,;.\\t:?\"]");
 				setDataFrame(tokens);
-				
-//				Pattern onlyWords = Pattern.compile("[a-z]+");
-//				Matcher match = onlyWords.matcher(line);
-//				String[] tokens = match.matches(line);
 				
 			}
 			reader.close();
@@ -61,8 +74,8 @@ public final class WordCounter {
 	public static void main(String[] args){
 		
 		//Make objects for input and output folder
-		String inputFolder = "E:\\Java\\Nishant\\InsightCoding\\wc_input";
-		String outputFolder = "E:\\Java\\Nishant\\InsightCoding\\wc_output";		
+		String inputFolder = args[0];
+		String outputFolder = args[1];		
 		Folder myInputFolder = new Folder(inputFolder,"input");
 		Folder myOutputFolder = new Folder(outputFolder,"output");
 
@@ -76,10 +89,11 @@ public final class WordCounter {
 			System.out.println(myFileName+" is done");
 		}
 		
-		System.out.println("\nEvery file ran out");
-		
-		System.out.println("Now printing creating output folder");
-		
+		System.out.println("\nAll Files Processed");		
+		System.out.println("Now creating output files");
+		myOutputFolder.writeRunningMedian(runningMedian);
+		myOutputFolder.writeWordCount(dataFrame);
+
 	}	
 
 }
