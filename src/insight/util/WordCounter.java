@@ -17,8 +17,9 @@ public final class WordCounter {
 	private static ArrayList<Float> runningMedian = new ArrayList<Float>();
 	//Setter
 	public static void setRunningMedian() {
-
+		
 		//Calculating the median
+		Collections.sort(numberOfWords);
 		int length = numberOfWords.size();
 		float median = 0.0f;
 		if(length%2==0){
