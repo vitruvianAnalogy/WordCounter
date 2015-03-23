@@ -1,7 +1,9 @@
 package insight.util;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
+
 import insight.Folder;
 
 public final class WordCounter {
@@ -14,14 +16,14 @@ public final class WordCounter {
 	}
 
 	//Stores the running Median
-	private static ArrayList<Float> runningMedian = new ArrayList<Float>();
+	private static ArrayList<Double> runningMedian = new ArrayList<Double>();
 	//Setter
 	public static void setRunningMedian() {
 		
 		//Calculating the median
 		Collections.sort(numberOfWords);
 		int length = numberOfWords.size();
-		float median = 0.0f;
+		double median = 0.0;
 		if(length%2==0){
 			median = numberOfWords.get((length/2)-1) + numberOfWords.get(length/2);
 			median = median/2;
@@ -30,6 +32,9 @@ public final class WordCounter {
 			median = numberOfWords.get(length/2); 
 		}
 		
+		//Setting format
+		DecimalFormat df = new DecimalFormat("#.#");      
+		median = Double.valueOf(df.format(median));
 		//Listing the medians
 		runningMedian.add(median);
 	}
@@ -80,8 +85,6 @@ public final class WordCounter {
 						tokensList.add(token);
 					}
 				}
-
-				//String[] tokens = line.split("[ 0-9_\\-,;.\\t:?\"]+");
 				
 				//Setting the key token pairs
 				setDataFrame(tokensList);

@@ -66,7 +66,7 @@ public class Folder extends File{
 	    }
 	}
 	
-	public void writeRunningMedian(ArrayList<Float> runningMedian){
+	public void writeRunningMedian(ArrayList<Double> runningMedian){
 		File runningMedianFile = new File(folderPath+"\\"+"med_result.txt");
 	    try {
 	        FileWriter writer = new FileWriter(runningMedianFile);
