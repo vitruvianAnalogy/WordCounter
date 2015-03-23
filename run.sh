@@ -1,0 +1,1 @@
+javac ./src/insight/util/WordCounter.java ./wc_input ./wc_output
