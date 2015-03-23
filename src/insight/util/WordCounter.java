@@ -30,6 +30,7 @@ public final class WordCounter {
 			median = numberOfWords.get(length/2); 
 		}
 		
+		//Listing the medians
 		runningMedian.add(median);
 	}
 
