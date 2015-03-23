@@ -49,6 +49,7 @@ public class Folder extends File{
 		}
 	}
 	
+	//Writing the number of counts
 	public void writeWordCount(TreeMap<String,Integer> myTreeMap){
 		File wordCountFile = new File(folderPath+"\\"+"wc_result.txt");
 	    try {
@@ -65,7 +66,7 @@ public class Folder extends File{
 	    }
 	}
 	
-	public void writeRunningMedian(ArrayList<Integer> runningMedian){
+	public void writeRunningMedian(ArrayList<Float> runningMedian){
 		File runningMedianFile = new File(folderPath+"\\"+"med_result.txt");
 	    try {
 	        FileWriter writer = new FileWriter(runningMedianFile);

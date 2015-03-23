@@ -6,15 +6,21 @@ import insight.Folder;
 
 public final class WordCounter {
 	
+	//Stores the number of words per line
 	private static ArrayList<Integer> numberOfWords = new ArrayList<Integer>();
+	//Setter
 	public static void setNumberOfWords(int element) {
 		numberOfWords.add(element);
 	}
 
-	private static ArrayList<Integer> runningMedian = new ArrayList<Integer>();
+	//Stores the running Median
+	private static ArrayList<Float> runningMedian = new ArrayList<Float>();
+	//Setter
 	public static void setRunningMedian() {
+
+		//Calculating the median
 		int length = numberOfWords.size();
-		int median = 0;
+		float median = 0.0f;
 		if(length%2==0){
 			median = numberOfWords.get((length/2)-1) + numberOfWords.get(length/2);
 			median = median/2;
@@ -22,15 +28,19 @@ public final class WordCounter {
 		else{
 			median = numberOfWords.get(length/2); 
 		}
+		
 		runningMedian.add(median);
 	}
 
+	//Stores the Key value pairs with each token as a key and number occurrences as value
 	private static TreeMap<String,Integer> dataFrame = new TreeMap<String,Integer>();	
+	//Getter
 	public static TreeMap<String, Integer> getDataFrame() {
 		return dataFrame;
 	}
-	public static void setDataFrame(String[] tokens) {
-		setNumberOfWords(tokens.length);
+	//Setter
+	public static void setDataFrame(ArrayList<String> tokens) {
+		setNumberOfWords(tokens.size());
 		setRunningMedian();
 		for(String token : tokens){			
 			if(dataFrame.containsKey(token)){
@@ -43,6 +53,7 @@ public final class WordCounter {
 		}
 	}
 
+	//Tokenizing
 	public static void preprocessing(String inputFolder, String inputFile){
 		try{
 			FileInputStream stream = new FileInputStream(inputFolder + "\\" + inputFile);
@@ -56,8 +67,22 @@ public final class WordCounter {
 				line = line.replaceAll("[_]+","");
 				line = line.replaceAll("[-]+","");
 				line = line.replaceAll("[']+","");
+
+
 				String[] tokens = line.split("[ ,;.\\t:?\"]");
-				setDataFrame(tokens);
+				ArrayList<String> tokensList= new ArrayList<String>();
+				//Fix: Stopping from "" being considered as a token
+
+				for(String token : tokens){
+					if(!token.equals("")){
+						tokensList.add(token);
+					}
+				}
+
+				//String[] tokens = line.split("[ 0-9_\\-,;.\\t:?\"]+");
+				
+				//Setting the key token pairs
+				setDataFrame(tokensList);
 				
 			}
 			reader.close();
@@ -83,12 +108,14 @@ public final class WordCounter {
 		System.out.println("\nFollowing are the list of input files");
 		myInputFolder.printListOfFiles();
 		
+		//Run through all the input files
 		for (String myFileName : myInputFolder.getListOfFiles()){
 			System.out.println("\nProcessing " + myFileName);
 			preprocessing(inputFolder, myFileName);
 			System.out.println(myFileName+" is done");
 		}
 		
+		//Writing output files
 		System.out.println("\nAll Files Processed");		
 		System.out.println("Now creating output files");
 		myOutputFolder.writeRunningMedian(runningMedian);
