@@ -11,6 +11,7 @@ Assumption : Machine has Java SDK 7
 6. Run WordCounter.java
 
 OR
+
 1. Clone the repository
 2. Explore to WordCounter/wc_input.
 3. Remove any existing files and add the required input files which needs to be tested.
