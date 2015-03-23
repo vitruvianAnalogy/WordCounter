@@ -1,6 +1,11 @@
-javac ./home/Nishant/WordCounter/src/insight/Folder.java
-echo ${CLASSPATH}
-export CLASSPATH=/home/Nishant/Insight/src/insight
+git clone git@github.com:vitruvianAnalogy/WordCounter.git ./home/<Username>/
+cd ./home/<Username>/WordCounter
 
-javac ./home/Nishant/WordCounter/src/insight/util/WordCounter.java
-java ./home/Nishant/WordCounter/src/insight/util/WordCounter .home/Nishant/WordCounter/wc_input .home/Nishant/WordCounter/wc_output
+javac ./home/<username>/WordCounter/src/insight/Folder.java
+echo ${CLASSPATH}
+export CLASSPATH=/home/<username>/Insight/src/insight
+
+javac ./home/<username>/WordCounter/src/insight/util/WordCounter.java
+java ./home/<username>/WordCounter/src/insight/util/WordCounter 
+
+.home/<username>/WordCounter/wc_input .home/<username>/WordCounter/wc_output
